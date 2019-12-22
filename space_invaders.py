@@ -34,6 +34,17 @@ player.setheading(90)
 
 playerspeed = 15
 
+#Create the enemy
+
+enemy = turtle.Turtle()
+enemy.color("red")
+enemy.shape("circle")
+enemy.penup()
+enemy.speed(-1)
+enemy.setposition(-200, 250)
+
+enemyspeed = 2
+
 #Moving the player right and left
 
 def move_right():
@@ -43,7 +54,6 @@ def move_right():
         x = -280
     player.setx(x)
 
-
 def move_left():
     x = player.xcor()
     x -= playerspeed
@@ -52,9 +62,29 @@ def move_left():
     player.setx(x)
 
 #Creating keyboard bindings
-turtle.listen()
 turtle.onkey(move_left, "Left")
 turtle.onkey(move_right, "Right")
+turtle.listen()
 
 
-delay = input("Press enter to finish.")
+#Maing game loop
+while True:
+    #move the enemy
+    x = enemy.xcor()
+    x += enemyspeed
+    enemy.setx(x)
+
+    #move the enemy down
+    if enemy.xcor() > 280:
+        y = enemy.ycor()
+        y -= 40
+        enemyspeed *= -1
+        enemy.sety(y)
+
+    if enemy.xcor() > -280:
+        y = enemy.ycor()
+        y -= 40
+        enemyspeed *= -1
+        enemy.sety(y)
+
+delay = raw_input("Press enter to finish.")
